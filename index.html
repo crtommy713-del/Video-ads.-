@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Watch & Earn - Video Portal</title>
 
-  <!-- ADSTERRA SCRIPT 1 (Social Bar / Popunder) -->
-  <script data-cfasync="false" src="https://bicea.org/14/35a5b52aaefa0df8a826d13e182ee903"></script>
+  <!-- ADSTERRA SCRIPT 1: Social Bar -->
+  <script data-cfasync="false" id="adsterra-key-socialbar" src="https://bicea.org/14/35a5b52aaefa0df8a826d13e182ee903"></script>
 
-  <!-- ADSTERRA SCRIPT 2 (Social Bar / Popunder) -->
-  <script data-cfasync="false" src="https://afders.org/1/cde9a6ae169b446514b04e9592d72dcc"></script>
+  <!-- ADSTERRA SCRIPT 2: Popunder -->
+  <script data-cfasync="false" id="adsterra-key-popunder" src="https://afders.org/1/cde9a6ae169b446514b04e9592d72dcc"></script>
 
   <style>
     * {
@@ -20,21 +20,21 @@
     }
 
     body {
-      background-color: #121212;
-      color: #ffffff;
+      background: #0d0f12;
+      color: #f3f4f6;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 0;
+      padding-bottom: 40px;
     }
 
     /* Top Header */
     .app-header {
       width: 100%;
-      background-color: #1e1e1e;
-      border-bottom: 1px solid #333;
-      padding: 12px 16px;
+      background: rgba(22, 27, 34, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -44,123 +44,153 @@
     }
 
     .back-nav-btn {
-      background-color: #2a2a2a;
+      background: rgba(255, 255, 255, 0.05);
       color: #00e676;
-      border: 1px solid #00e676;
+      border: 1px solid rgba(0, 230, 118, 0.3);
       padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: bold;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
     }
 
     .badge {
-      display: inline-block;
-      background-color: #2a2a2a;
+      background: rgba(255, 145, 0, 0.15);
       color: #ff9100;
+      border: 1px solid rgba(255, 145, 0, 0.3);
       font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
     }
 
     .main-content {
-      padding: 20px;
+      padding: 20px 16px;
       width: 100%;
-      max-width: 400px;
-      text-align: center;
-      margin-top: 20px;
+      max-width: 420px;
     }
 
-    .container {
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    }
-
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-      color: #00e676;
-    }
-
-    p {
-      font-size: 0.9rem;
-      color: #b0bec5;
-      margin-bottom: 20px;
-    }
-
-    /* Stats Card & Reset */
-    .stats-card {
-      background-color: #2a2a2a;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 20px;
+    /* Total Banner */
+    .total-card {
+      background: #161b22;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 18px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 24px;
     }
 
-    .stats-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .stats-card span {
+    .total-info span {
       font-size: 0.8rem;
-      color: #aaa;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
 
-    .stats-card strong {
-      font-size: 1.3rem;
+    .total-info strong {
+      font-size: 1.8rem;
       color: #00e676;
+      display: block;
+      margin-top: 2px;
+      font-weight: 700;
     }
 
     .reset-btn {
-      background-color: #ff3d00;
-      color: #ffffff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
+      background: rgba(255, 61, 0, 0.15);
+      color: #ff5252;
+      border: 1px solid rgba(255, 61, 0, 0.3);
+      padding: 8px 14px;
+      border-radius: 10px;
       font-size: 0.8rem;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s;
     }
 
-    .reset-btn:active {
-      background-color: #d50000;
-    }
-
-    /* Action Watch Button */
-    .video-btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #ff9100;
-      color: #121212;
+    .section-title {
       font-size: 1.1rem;
-      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    /* Individual Ad Cards */
+    .ad-card {
+      background: #161b22;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .ad-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .ad-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .ad-key {
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: #00e676;
+      background: rgba(0, 230, 118, 0.1);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 230, 118, 0.2);
+    }
+
+    .ad-desc {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    /* Buttons */
+    .video-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn-ad1 {
+      background: #ff9100;
+      color: #121212;
+    }
+
+    .btn-ad2 {
+      background: #00b0ff;
+      color: #121212;
     }
 
     .video-btn:disabled {
-      background-color: #555555;
-      color: #888888;
+      background: #2a313d !important;
+      color: #6b7280 !important;
       cursor: not-allowed;
     }
 
+    /* Status Box */
     .status-box {
-      margin-top: 16px;
-      padding: 10px;
-      border-radius: 6px;
-      background-color: #2a2a2a;
-      font-size: 0.85rem;
-      color: #b0bec5;
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.82rem;
+      color: #9ca3af;
+      text-align: center;
     }
   </style>
 </head>
@@ -168,38 +198,61 @@
 
   <header class="app-header">
     <button class="back-nav-btn" onclick="goBack()">← Back</button>
-    <div class="badge">Video Reward Mode</div>
+    <div class="badge">Adsterra Portal</div>
   </header>
 
   <div class="main-content">
-    <div class="container">
-      <h1>Video Ad Portal</h1>
-      <p>Tap watch below. Interact with the video ad overlay and stay for 15 seconds to gain your watch credit.</p>
 
-      <!-- Stats Card with Reset Button -->
-      <div class="stats-card">
-        <div class="stats-info">
-          <span>Videos Watched:</span>
-          <strong id="video-counter">0</strong>
-        </div>
-        <button class="reset-btn" onclick="resetVideoCount()">↻ Reset</button>
+    <!-- Total Banner -->
+    <div class="total-card">
+      <div class="total-info">
+        <span>Total Videos Watched</span>
+        <strong id="video-counter">0</strong>
       </div>
+      <button class="reset-btn" onclick="resetVideoCount()">↻ Reset</button>
+    </div>
 
-      <!-- Main Watch Button -->
-      <button class="video-btn" id="watch-btn" onclick="watchVideoAd()">
-        ▶ Watch Video Ad
+    <div class="section-title">📺 Active Ad Channels</div>
+
+    <!-- AD CARD 1 -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <span class="ad-title">Video Ad #1</span>
+        <span class="ad-key">Key: 35a5b52a...</span>
+      </div>
+      <p class="ad-desc">Tap below to open Video Ad 1 in a new tab. Return after 5 seconds to claim your credit.</p>
+      
+      <button class="video-btn btn-ad1" id="watch-btn-1" onclick="watchVideoAd(1)">
+        ▶ Watch Video Ad 1
       </button>
 
-      <div class="status-box" id="status-msg">
-        Ready to watch.
-      </div>
+      <div class="status-box" id="status-msg-1">Ready to watch.</div>
     </div>
+
+    <!-- AD CARD 2 -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <span class="ad-title">Video Ad #2</span>
+        <span class="ad-key">Key: cde9a6ae...</span>
+      </div>
+      <p class="ad-desc">Tap below to open Video Ad 2 in a new tab. Return after 5 seconds to claim your credit.</p>
+      
+      <button class="video-btn btn-ad2" id="watch-btn-2" onclick="watchVideoAd(2)">
+        ▶ Watch Video Ad 2
+      </button>
+
+      <div class="status-box" id="status-msg-2">Ready to watch.</div>
+    </div>
+
   </div>
 
   <script>
-    // Load saved count from localStorage
     let watchCount = parseInt(localStorage.getItem('completed_video_ads')) || 0;
     document.getElementById('video-counter').innerText = watchCount;
+
+    // Optional: Replace these with your Adsterra Direct Link URLs for 100% reliable ad opening!
+    const DIRECT_LINK_URL_1 = ""; 
+    const DIRECT_LINK_URL_2 = "";
 
     function goBack() {
       if (window.history.length > 1) {
@@ -209,43 +262,58 @@
       }
     }
 
-    function watchVideoAd() {
-      const btn = document.getElementById('watch-btn');
-      const status = document.getElementById('status-msg');
+    function watchVideoAd(adNumber) {
+      const btn1 = document.getElementById('watch-btn-1');
+      const btn2 = document.getElementById('watch-btn-2');
+      const status = document.getElementById(`status-msg-${adNumber}`);
 
-      btn.disabled = true;
-      status.innerText = "Ad video active! Please do not leave for 15 seconds...";
+      btn1.disabled = true;
+      btn2.disabled = true;
+
+      status.innerText = "⏳ Opening ad... Stay active for 5s!";
       status.style.color = "#ffb74d";
 
-      // 15-Second Watch Verification Countdown
-      let timer = 15;
+      // FORCE AD TO OPEN IN A NEW TAB ON CLICK
+      let targetUrl = (adNumber === 1) ? DIRECT_LINK_URL_1 : DIRECT_LINK_URL_2;
+      
+      if (targetUrl && targetUrl !== "") {
+        window.open(targetUrl, '_blank');
+      } else {
+        // Fallback: Trigger popunder script event
+        window.open('about:blank', '_blank');
+      }
+
+      // 5-Second Timer Countdown
+      let timer = 5;
       const countdown = setInterval(() => {
         timer--;
-        status.innerText = `Watching ad... ${timer}s remaining for reward`;
+        status.innerText = `Watching Ad #${adNumber}... ${timer}s remaining`;
 
         if (timer <= 0) {
           clearInterval(countdown);
-          
-          // Add to counter on successful verification
+
           watchCount++;
           localStorage.setItem('completed_video_ads', watchCount);
           document.getElementById('video-counter').innerText = watchCount;
 
-          status.innerText = "✅ Video complete! Reward added to watched count.";
+          status.innerText = `✅ Video Ad #${adNumber} complete! +1 Added.`;
           status.style.color = "#00e676";
-          btn.disabled = false;
+
+          btn1.disabled = false;
+          btn2.disabled = false;
         }
       }, 1000);
     }
 
-    // Reset Button Function
     function resetVideoCount() {
-      if (confirm('Are you sure you want to reset your watched video ads count to 0?')) {
+      if (confirm('Are you sure you want to reset total watched videos count to 0?')) {
         watchCount = 0;
         localStorage.setItem('completed_video_ads', 0);
         document.getElementById('video-counter').innerText = 0;
-        document.getElementById('status-msg').innerText = "Counter reset to 0.";
-        document.getElementById('status-msg').style.color = "#b0bec5";
+        document.getElementById('status-msg-1').innerText = "Counter reset to 0.";
+        document.getElementById('status-msg-2').innerText = "Counter reset to 0.";
+        document.getElementById('status-msg-1').style.color = "#9ca3af";
+        document.getElementById('status-msg-2').style.color = "#9ca3af";
       }
     }
   </script>
