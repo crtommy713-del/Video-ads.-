@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch & Earn - Video Ads</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* Navigation Bar */
+    .app-header {
+      width: 100%;
+      background-color: #1e1e1e;
+      border-bottom: 1px solid #333;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .back-nav-btn {
+      background-color: #2a2a2a;
+      color: #00e676;
+      border: 1px solid #00e676;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: #2a2a2a;
+      color: #ff9100;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 12px;
+    }
+
+    .main-content {
+      padding: 20px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .container {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: #00e676;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #b0bec5;
+      margin-bottom: 20px;
+    }
+
+    /* Stats Card & Reset */
+    .stats-card {
+      background-color: #2a2a2a;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stats-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .stats-card span {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    .stats-card strong {
+      font-size: 1.3rem;
+      color: #00e676;
+    }
+
+    .reset-btn {
+      background-color: #ff3d00;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .reset-btn:active {
+      background-color: #d50000;
+    }
+
+    /* Action Button */
+    .video-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff9100;
+      color: #121212;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .video-btn:disabled {
+      background-color: #555555;
+      color: #888888;
+      cursor: not-allowed;
+    }
+
+    .status-box {
+      margin-top: 16px;
+      padding: 10px;
+      border-radius: 6px;
+      background-color: #2a2a2a;
+      font-size: 0.85rem;
+      color: #b0bec5;
+    }
+  </style>
+
+  <!-- INSERT YOUR AD NETWORK SCRIPT TAG BELOW (e.g., Monetag / Adsterra Video SDK) -->
+  <!-- <script src="https://your-ad-network-sdk.js"></script> -->
+</head>
+<body>
+
+  <header class="app-header">
+    <button class="back-nav-btn" onclick="goBack()">← Back</button>
+    <div class="badge">Video Reward Mode</div>
+  </header>
+
+  <div class="main-content">
+    <div class="container">
+      <h1>Video Ad Portal</h1>
+      <p>Tap watch below. The ad will pop up and must finish playing to record your reward.</p>
+
+      <!-- Stats Card with Reset Button -->
+      <div class="stats-card">
+        <div class="stats-info">
+          <span>Videos Watched:</span>
+          <strong id="video-counter">0</strong>
+        </div>
+        <button class="reset-btn" onclick="resetVideoCount()">↻ Reset</button>
+      </div>
+
+      <!-- Main Watch Button -->
+      <button class="video-btn" id="watch-btn" onclick="watchVideoAd()">
+        ▶ Watch Video Ad
+      </button>
+
+      <div class="status-box" id="status-msg">
+        Ready to watch.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load saved watch count
+    let watchCount = parseInt(localStorage.getItem('completed_video_ads')) || 0;
+    document.getElementById('video-counter').innerText = watchCount;
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = './index.html';
+      }
+    }
+
+    function watchVideoAd() {
+      const btn = document.getElementById('watch-btn');
+      const status = document.getElementById('status-msg');
+
+      btn.disabled = true;
+      status.innerText = "Ad video playing... Please do not close until complete!";
+      status.style.color = "#ffb74d";
+
+      // 1. TRIGGER AD NETWORK SCRIPT / POPUP HERE
+      // Example: show_rewarded_ad().then(...)
+      
+      // 2. SIMULATE / VERIFY 15-SECOND VIDEO PLAYBACK
+      let timer = 15;
+      const countdown = setInterval(() => {
+        timer--;
+        status.innerText = `Watching ad... ${timer}s remaining for reward`;
+
+        if (timer <= 0) {
+          clearInterval(countdown);
+          
+          // VERIFIED COMPLETION: Add to counter
+          watchCount++;
+          localStorage.setItem('completed_video_ads', watchCount);
+          document.getElementById('video-counter').innerText = watchCount;
+
+          status.innerText = "✅ Video complete! Reward added to watched count.";
+          status.style.color = "#00e676";
+          btn.disabled = false;
+        }
+      }, 1000);
+    }
+
+    // Reset Counter
+    function resetVideoCount() {
+      if (confirm('Are you sure you want to reset your watched video ads count to 0?')) {
+        watchCount = 0;
+        localStorage.setItem('completed_video_ads', 0);
+        document.getElementById('video-counter').innerText = 0;
+        document.getElementById('status-msg').innerText = "Counter reset to 0.";
+        document.getElementById('status-msg').style.color = "#b0bec5";
+      }
+    }
+  </script>
+
+</body>
+</html>
