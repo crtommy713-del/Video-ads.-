@@ -220,4 +220,97 @@
         <span class="ad-title">Video Ad #1</span>
         <span class="ad-key">Key: 46b1f7da...</span>
       </div>
-      <p class
+      <p class="ad-desc">Tap below to open Video Ad 1 in a new tab. Return after 5 seconds to claim your credit.</p>
+      
+      <button class="video-btn btn-ad1" id="watch-btn-1" onclick="watchVideoAd(1)">
+        ▶ Watch Video Ad 1
+      </button>
+
+      <div class="status-box" id="status-msg-1">Ready to watch.</div>
+    </div>
+
+    <!-- AD CARD 2 -->
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <span class="ad-title">Video Ad #2</span>
+        <span class="ad-key">Key: 46b1f7da...</span>
+      </div>
+      <p class="ad-desc">Tap below to open Video Ad 2 in a new tab. Return after 5 seconds to claim your credit.</p>
+      
+      <button class="video-btn btn-ad2" id="watch-btn-2" onclick="watchVideoAd(2)">
+        ▶ Watch Video Ad 2
+      </button>
+
+      <div class="status-box" id="status-msg-2">Ready to watch.</div>
+    </div>
+
+  </div>
+
+  <script>
+    let watchCount = parseInt(localStorage.getItem('completed_video_ads')) || 0;
+    document.getElementById('video-counter').innerText = watchCount;
+
+    // YOUR ADSTERRA DIRECT LINK / SMARTLINK URL
+    const DIRECT_LINK_URL_1 = "https://auctionr.org/4/46b1f7da7334c456585594b8b699a9ad"; 
+    const DIRECT_LINK_URL_2 = "https://auctionr.org/4/46b1f7da7334c456585594b8b699a9ad";
+
+    function goBack() {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = 'https://crtommy713-del.github.io';
+      }
+    }
+
+    function watchVideoAd(adNumber) {
+      const btn1 = document.getElementById('watch-btn-1');
+      const btn2 = document.getElementById('watch-btn-2');
+      const status = document.getElementById(`status-msg-${adNumber}`);
+
+      btn1.disabled = true;
+      btn2.disabled = true;
+
+      status.innerText = "⏳ Opening ad... Stay active for 5s!";
+      status.style.color = "#ffb74d";
+
+      // INSTANTLY OPEN DIRECT AD LINK IN NEW TAB
+      let targetUrl = (adNumber === 1) ? DIRECT_LINK_URL_1 : DIRECT_LINK_URL_2;
+      window.open(targetUrl, '_blank');
+
+      // 5-Second Verification Countdown
+      let timer = 5;
+      const countdown = setInterval(() => {
+        timer--;
+        status.innerText = `Watching Ad #${adNumber}... ${timer}s remaining`;
+
+        if (timer <= 0) {
+          clearInterval(countdown);
+
+          watchCount++;
+          localStorage.setItem('completed_video_ads', watchCount);
+          document.getElementById('video-counter').innerText = watchCount;
+
+          status.innerText = `✅ Video Ad #${adNumber} complete! +1 Added.`;
+          status.style.color = "#00e676";
+
+          btn1.disabled = false;
+          btn2.disabled = false;
+        }
+      }, 1000);
+    }
+
+    function resetVideoCount() {
+      if (confirm('Are you sure you want to reset total watched videos count to 0?')) {
+        watchCount = 0;
+        localStorage.setItem('completed_video_ads', 0);
+        document.getElementById('video-counter').innerText = 0;
+        document.getElementById('status-msg-1').innerText = "Counter reset to 0.";
+        document.getElementById('status-msg-2').innerText = "Counter reset to 0.";
+        document.getElementById('status-msg-1').style.color = "#9ca3af";
+        document.getElementById('status-msg-2').style.color = "#9ca3af";
+      }
+    }
+  </script>
+
+</body>
+</html>
