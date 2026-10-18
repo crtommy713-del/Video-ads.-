@@ -3,7 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch & Earn - Video Ads</title>
+  <title>Watch & Earn - Video Portal</title>
+
+  <!-- ADSTERRA SCRIPT 1 (Social Bar / Popunder) -->
+  <script data-cfasync="false" src="https://bicea.org/14/35a5b52aaefa0df8a826d13e182ee903"></script>
+
+  <!-- ADSTERRA SCRIPT 2 (Social Bar / Popunder) -->
+  <script data-cfasync="false" src="https://afders.org/1/cde9a6ae169b446514b04e9592d72dcc"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -22,7 +29,7 @@
       padding: 0;
     }
 
-    /* Navigation Bar */
+    /* Top Header */
     .app-header {
       width: 100%;
       background-color: #1e1e1e;
@@ -126,7 +133,7 @@
       background-color: #d50000;
     }
 
-    /* Action Button */
+    /* Action Watch Button */
     .video-btn {
       display: block;
       width: 100%;
@@ -156,9 +163,6 @@
       color: #b0bec5;
     }
   </style>
-
-  <!-- INSERT YOUR AD NETWORK SCRIPT TAG BELOW (e.g., Monetag / Adsterra Video SDK) -->
-  <!-- <script src="https://your-ad-network-sdk.js"></script> -->
 </head>
 <body>
 
@@ -170,7 +174,7 @@
   <div class="main-content">
     <div class="container">
       <h1>Video Ad Portal</h1>
-      <p>Tap watch below. The ad will pop up and must finish playing to record your reward.</p>
+      <p>Tap watch below. Interact with the video ad overlay and stay for 15 seconds to gain your watch credit.</p>
 
       <!-- Stats Card with Reset Button -->
       <div class="stats-card">
@@ -193,7 +197,7 @@
   </div>
 
   <script>
-    // Load saved watch count
+    // Load saved count from localStorage
     let watchCount = parseInt(localStorage.getItem('completed_video_ads')) || 0;
     document.getElementById('video-counter').innerText = watchCount;
 
@@ -201,7 +205,7 @@
       if (window.history.length > 1) {
         window.history.back();
       } else {
-        window.location.href = './index.html';
+        window.location.href = 'https://crtommy713-del.github.io';
       }
     }
 
@@ -210,13 +214,10 @@
       const status = document.getElementById('status-msg');
 
       btn.disabled = true;
-      status.innerText = "Ad video playing... Please do not close until complete!";
+      status.innerText = "Ad video active! Please do not leave for 15 seconds...";
       status.style.color = "#ffb74d";
 
-      // 1. TRIGGER AD NETWORK SCRIPT / POPUP HERE
-      // Example: show_rewarded_ad().then(...)
-      
-      // 2. SIMULATE / VERIFY 15-SECOND VIDEO PLAYBACK
+      // 15-Second Watch Verification Countdown
       let timer = 15;
       const countdown = setInterval(() => {
         timer--;
@@ -225,7 +226,7 @@
         if (timer <= 0) {
           clearInterval(countdown);
           
-          // VERIFIED COMPLETION: Add to counter
+          // Add to counter on successful verification
           watchCount++;
           localStorage.setItem('completed_video_ads', watchCount);
           document.getElementById('video-counter').innerText = watchCount;
@@ -237,7 +238,7 @@
       }, 1000);
     }
 
-    // Reset Counter
+    // Reset Button Function
     function resetVideoCount() {
       if (confirm('Are you sure you want to reset your watched video ads count to 0?')) {
         watchCount = 0;
